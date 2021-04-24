@@ -1,0 +1,56 @@
+[33mcommit ec4053365b04787bf35688d93cd7857347c56adf[m[33m ([m[1;36mHEAD -> [m[1;32mfrontend[m[33m, [m[1;31morigin/frontend[m[33m)[m
+Author: Tyler Kneidl <tskneidl@gmail.com>
+Date:   Sat Apr 24 11:12:30 2021 -0700
+
+    modified webpack inconsistencies, created multiple components file structure
+
+[33mcommit cf711da4558d5f252d744de8509d58558c50c081[m[33m ([m[1;31mupstream/main[m[33m)[m
+Merge: bfa9396 146492e
+Author: tylerkneidl <tskneidl@gmail.com>
+Date:   Sat Apr 24 09:18:16 2021 -0700
+
+    Merge pull request #3 from tylerkneidl/frontend
+    
+    added dependencies, login,nav,app,logout components
+
+[33mcommit 146492e7e062189afddbb92672559de3864fff0d[m
+Author: Tyler Kneidl <tskneidl@gmail.com>
+Date:   Sat Apr 24 09:16:19 2021 -0700
+
+    added dependencies, login,nav,app,logout components
+
+[33mcommit bfa9396079282091ed8601ab163e668f25c2b827[m
+Merge: 9aa0143 b8d7a56
+Author: Logan <70174719+SteeleCoale@users.noreply.github.com>
+Date:   Sat Apr 24 11:24:44 2021 -0400
+
+    Merge pull request #2 from tylerkneidl/frontend
+    
+    file structure modified, app.jsx created
+
+[33mcommit 9aa014310e8e3ca65fc09edf0f73f814c605de3e[m
+Merge: 8395cbb 3ecb64d
+Author: Logan <70174719+SteeleCoale@users.noreply.github.com>
+Date:   Sat Apr 24 11:24:08 2021 -0400
+
+    Merge pull request #1 from swattoboe/backend1
+    
+    first commit! added models.js and gitignore
+
+[33mcommit b8d7a565833881da455fc1db35c6a195069fd0a2[m
+Author: Tyler Kneidl <tskneidl@gmail.com>
+Date:   Sat Apr 24 08:21:06 2021 -0700
+
+    file structure modified, app.jsx created
+
+[33mcommit 3ecb64d2edaed970b83a8d928f5a5d9fbdb23f19[m
+Author: Arthur Sato <swatto12@gmail.com>
+Date:   Sat Apr 24 11:15:36 2021 -0400
+
+    first commit! added models.js and gitignore
+
+[33mcommit 8395cbbde529a9af41640fbf05daa25bb7ac2f30[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: SteeleCoale <lcoale@gmail.com>
+Date:   Fri Apr 23 20:23:38 2021 -0400
+
+    first commit, hot mod works

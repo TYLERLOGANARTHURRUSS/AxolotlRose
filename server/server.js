@@ -10,15 +10,15 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session());
+// app.use(session());
 
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
-app.use(passport.session());
+// app.use(passport.session());
 
-passport.serializeUser((user, done)=> {
-  done(null, user.id);
-});
+// passport.serializeUser((user, done)=> {
+//   done(null, user.id);
+// });
 
 // passport.deserializeUser((id, done) => {
  
@@ -30,7 +30,7 @@ passport.serializeUser((user, done)=> {
 // }))
 
 app.get('/', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname,'../index.html'))
+  res.status(200).sendFile(path.join(__dirname,'../public/index.html'))
 })
 
 app.listen(3000, ()=> {
