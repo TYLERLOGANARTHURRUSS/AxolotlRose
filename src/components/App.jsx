@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import NavBar from './navbar.jsx';
-import MapChart from "./mapchart.jsx";
+import NavBar from './NavBar.jsx';
 import axios from 'axios';
-import CreateAccount from './createAccount.jsx'
+// import CreateAccount from './createAccount.jsx'
 
 const App = () => {
-  const [logged, setLogged] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(async ()=>{
   const result = await axios('/api/loggedIn')
-  setLogged(result.data)
-},)  ;
-
-  const [countryArray, setCountryArray] =  useState([]);
-
-  useEffect(()=>{},[countryArray])
+  setIsAuthenticated(result.data)
+},[isAuthenticated])  ;
 
   const handleChange = (newValue) =>{
     useEffect(async ()=>{
@@ -23,6 +18,7 @@ const App = () => {
       setLogged(result.data)
     },) 
   }
+
   let mainContainer;
   if(logged === true){
     mainContainer = <MapChart countryArray = {countryArray} setCountryArray = {setCountryArray}/>
@@ -34,7 +30,7 @@ const App = () => {
      <div>
     
        <nav id="navBarContainer">
-         <NavBar logged={logged} onChange= {handleChange}/>
+         <NavBar logInStatus={isAuthenticated} onChange={handleChange}/>
        </nav>
       
         <div id='mainContainer'>
