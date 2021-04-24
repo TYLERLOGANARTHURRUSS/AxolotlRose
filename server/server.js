@@ -6,19 +6,20 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').streategy;
 const { disconnect } = require('process');
 
+const userController = require('./controllers/userController')
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session());
+// app.use(session());
 
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
-app.use(passport.session());
+// app.use(passport.session());
 
-passport.serializeUser((user, done)=> {
-  done(null, user.id);
-});
+// passport.serializeUser((user, done)=> {
+//   done(null, user.id);
+// });
 
 // passport.deserializeUser((id, done) => {
  
@@ -29,8 +30,12 @@ passport.serializeUser((user, done)=> {
 
 // }))
 
-app.get('/', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname,'../index.html'))
+app.get('/', userController.testConnect, (req, res) => {
+  res.status(200).sendFile(path.join(__dirname,'../public/index.html'))
+})
+
+app.post('/login', (req, res) => {
+
 })
 
 app.listen(3000, ()=> {
