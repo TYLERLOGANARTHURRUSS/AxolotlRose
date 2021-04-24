@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import NavBar from './NavBar.jsx';
 import axios from 'axios';
-// import CreateAccount from './createAccount.jsx'
+import CreateAccount from './CreateAccount.jsx'
+import Dashboard from './Dashboard.jsx'
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(async ()=>{
   const result = await axios('/api/loggedIn')
@@ -15,14 +16,15 @@ const App = () => {
   const handleChange = (newValue) =>{
     useEffect(async ()=>{
       const result = await axios('/api/loggedIn')
-      setLogged(result.data)
+      setIsAuthenticated(result.data)
     },) 
   }
 
   let mainContainer;
-  if(logged === true){
-    mainContainer = <MapChart countryArray = {countryArray} setCountryArray = {setCountryArray}/>
-  }else {
+  if(isAuthenticated === true){
+    mainContainer = <Dashboard />
+  }
+  else {
     mainContainer = <CreateAccount />
   }
 

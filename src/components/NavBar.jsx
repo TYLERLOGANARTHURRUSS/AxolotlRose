@@ -1,17 +1,18 @@
 import React from "react";
-import LogInForm from './login.jsx'
-import LogOut from './logout.jsx'
+import LogInForm from './Login.jsx'
+import LogOut from './Logout.jsx'
 
 const NavBar = (props) => {
     let logInStatus = props.logInStatus;
     let component;
-    if(logged === true) component = <LogOut />
-    else if(logged === false) component = <LogInForm onChange={props.onChange}/>
+    if(logInStatus === true) component = <LogOut />
+    else if(logInStatus === false) component = <LogInForm onChange={props.onChange}/>
     
      return(
     <div id='navContainer'>
         <h1>Big Little Library</h1>
         <div id='logins'>
+            
         {component}
         </div>
     </div>
