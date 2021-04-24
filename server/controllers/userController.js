@@ -1,19 +1,19 @@
 const db = require('../models/models.js')
 // const db = require('pg');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
 
 const userController = {};
 
 userController.registerUser = async (req, res, next) => {
   const { username, password, name, location } = req.body;
-
+  // console.log("request received")
  try {
    const hashedPassword = await bcrypt.hash(password, 10);
    // code to insert hashed password with req.body.username into database
    const queryString = `
    INSERT INTO users (username, password, name, piclink, location)
    VALUES (${username}, ${hashedPassword}, ${name}, ${piclink}, ${location})`
-   db.query(queryString,(err, res) => {
+   db.query(queryString, (err, res) => {
     if (err) {
       console.log('error creating user', err)
       return next();
@@ -27,6 +27,21 @@ userController.registerUser = async (req, res, next) => {
  }
 }
 
+userController.checkAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()){
+    res.locals.auth = true
+    return next()
+  }
+  res.locals.auth = false;
+}
+
+// userController.checkNotAuthenticated = (req, res, next) => {
+//   if (req.isAuthenticated()){
+//     res.locals.auth = true;
+//     return next()
+//   }
+//   return next();
+// }
 // userController.verifyUser = async (req, res, next) => {
 //   try {
 

@@ -1,17 +1,19 @@
-if (process.evv.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
+// if (process.evv.NODE_ENV !== 'production') {
+//   require('dotenv').config();
+// }
+require ('dotenv').config();
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').streategy;
+const LocalStrategy = require('passport-local').strategy;
 const { disconnect, nextTick } = require('process');
 const db = require('pg');
 const userController = require('./controllers/userController')
 const app = express();
+const dotEnv = require('dotenv').config();
+const methodOverride = require('method-override')
 
 const initializePassport = require('./passport-config')
 
@@ -41,9 +43,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'))
 
 
 // app.use(session());
@@ -56,7 +56,7 @@ app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname,'../public/index.html'))
 })
 
-app.post('/register', userController.registerUser = (req, res) => {
+app.post('/register', userController.registerUser, (req, res) => {
   res.status(200)
 })
 app.post('/login', passport.authenticate('local',{
@@ -64,7 +64,11 @@ app.post('/login', passport.authenticate('local',{
   failureRedirect: '/'
 }))
 
-
+app.delete('/logout', (req, res) => {
+  req.logOut()
+  res.locals.logout = true;
+  res.status(200).json(res.locals.logout)
+})
 
 app.listen(3000, ()=> {
   console.log('Listening on port 3000')
