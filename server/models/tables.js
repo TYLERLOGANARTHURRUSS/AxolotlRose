@@ -5,21 +5,24 @@
 //   temp_lo int
 // )
 
+//TABLE SCHEMA
+
 const userTableString = 
 `CREATE TABLE users (
-    user_id   INT AUTO_INCREMENT,
+    user_id   SERIAL PRIMARY KEY,
     username  VARCHAR(250) NOT NULL,
     password  VARCHAR(250) NOT NULL,
-    lastname  VARCHAR(250),
-    firstname VARCHAR(250),
+    name  VARCHAR(250),
     piclink   VARCHAR(1000),
-    location  VARCHAR(120),
-    PRIMARY KEY (user_id)
+    location  VARCHAR(120)
   )`
+
+  // INSERT INTO users (username, password, lastname, firstname, piclink, location)
+  //   VALUES ('LoganC', 'bigdogsbark', 'COALE', 'LOGAN', 'www.piklink', 'Cold Spring')
 
 const bookTableString = 
 `CREATE TABLE books (
-    id      INT AUTO_INCREMENT PRIMARY KEY,  
+    id      SERIAL PRIMARY KEY,  
     title   VARCHAR(250) NOT NULL,
     author  VARCHAR(250) NOT NULL,
     userid  VARCHAR(250) NOT NULL
@@ -27,10 +30,10 @@ const bookTableString =
 
 
 const messageTableString = 
-`CREATE TABLE messages
-  id      INT AUTO_INCREMENT PRIMARY KEY,
-  to      INT NOT NULL,
-  from    INT NOT NULL,
+`CREATE TABLE messages (
+  id      SERIAL PRIMARY KEY,
+  _to      INT NOT NULL,
+  _from    INT NOT NULL,
   message VARCHAR(1000),
   read    BOOL
-`
+)`
