@@ -10,7 +10,7 @@ const CreateAccount = (props) => {
 
    const handleSubmit = (evt)=>{
       evt.preventDefault();
-      axios.post('/create', {'username': username, 'password':password, 'name': name, 'location':location})
+      axios.post('/register', {'username': username, 'password':password, 'name': name, 'location':location})
       .then(function (response) {
           if(response) location.reload()
       })
@@ -18,9 +18,7 @@ const CreateAccount = (props) => {
    }
      return(
          <div id='maincontainer'>
-          <div id='leftdiv'>
-            //
-             </div>
+          <div id='leftdiv'></div>
       <div id='rightdiv'>
           <h2>Sign up!</h2>
          <form onSubmit = {handleSubmit}>
