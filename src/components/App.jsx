@@ -6,7 +6,7 @@ import CreateAccount from './CreateAccount.jsx'
 import Dashboard from './Dashboard.jsx'
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(async ()=>{
   const result = await axios('/api/loggedIn')
