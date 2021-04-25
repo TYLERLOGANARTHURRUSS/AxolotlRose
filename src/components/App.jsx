@@ -4,6 +4,7 @@ import NavBar from './NavBar.jsx';
 import axios from 'axios';
 import CreateAccount from './CreateAccount.jsx'
 import Dashboard from './Dashboard.jsx'
+import '../../public/styles.css'
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);

@@ -1,8 +1,14 @@
 #bookDisplay {
+    width:1000px;
     display: flex;
     flex-direction:row;
     align-items:center;
     justify-content: center;
+}
+
+#bookComponent {
+    width:200px;
+    padding: 25px;
 }
 
 body {
