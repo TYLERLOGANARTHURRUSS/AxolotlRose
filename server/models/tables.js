@@ -37,3 +37,8 @@ const messageTableString =
   message VARCHAR(1000),
   read    BOOL
 )`
+
+const createSessionTableString =
+`CREATE TABLE sessions (
+
+)`
