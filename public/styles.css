@@ -1,0 +1,10 @@
+#bookDisplay {
+    display: flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content: center;
+}
+
+body {
+    background-color:bisque;
+}
