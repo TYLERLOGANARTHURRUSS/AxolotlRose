@@ -20,7 +20,7 @@ const SearchAndAdd = ()=>{
             title = {books[0][0]} 
             author={books[0][1]} 
             imgLink = {books[0][2]}
-            identifier = {books[0][3]}
+            id = {books[0][3]}
             />])
             
         }))
