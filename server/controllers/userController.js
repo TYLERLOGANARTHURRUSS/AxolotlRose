@@ -6,24 +6,30 @@ const userController = {};
 
 userController.registerUser = async (req, res, next) => {
   const { username, password, name, location } = req.body;
-  // console.log("request received")
+  // hashing password
+  const hashedPassword = await bcrypt.hash(password, 10);
+
  try {
-   const hashedPassword = await bcrypt.hash(password, 10);
-   // code to insert hashed password with req.body.username into database
+   // declare query params array for insertion
+   const params = [username, hashedPassword, name, location];
+   console.log(params)
    const queryString = `
-   INSERT INTO users (username, password, name, piclink, location)
-   VALUES (${username}, ${hashedPassword}, ${name}, ${piclink}, ${location})`
-   db.query(queryString, (err, res) => {
+   INSERT INTO users (username, password, name, location)
+   VALUES ($1, $2, $3, $4)`
+   // calling query method to insert user
+   await db.query(queryString, params, (err, res) => {
     if (err) {
-      console.log('error creating user', err)
+      console.log('error creating user', err);
       return next();
     } else {
+      console.log('successfully inserted new registered user row');
+      console.log(params[0])
       return next();
     }
    })
  }
  catch(e){
-   return next({Message: 'Error in userController.registerUser:' + e});
+   return next(JSON.stringify({Message: 'Error in userController.registerUser:' + e}));
  }
 }
 

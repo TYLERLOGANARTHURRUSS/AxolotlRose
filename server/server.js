@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/register', userController.registerUser, (req, res) => {
-  res.status(200)
+  res.status(200);
 })
 app.post('/login', passport.authenticate('local',{
   sucessRedirect: '/',
