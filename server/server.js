@@ -5,31 +5,39 @@ require ('dotenv').config();
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const pgSession = require('connect-pg-simple');
+// const pgSession = require('connect-pg-simple');
+const flash = require('express-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').strategy;
-const { disconnect, nextTick } = require('process');
-const db = require('pg');
+// const { disconnect, nextTick } = require('process');
+const db = require('./models/models.js')
+
 const userController = require('./controllers/userController')
 const app = express();
-const dotEnv = require('dotenv').config();
 const methodOverride = require('method-override')
 
-const initializePassport = require('./passport-config')
+const initializePassport = require('./passport-config');
 
 initializePassport(
   passport, 
-  username => {
-    const queryString = `SELECT * from users WHERE username = "${username}"`
-    db.query(queryString)
-    .then(result => res.locals.user = result)
-    .catch(err => console.log('error in initialize passport', err))
+  async (username) => {
+    const params = [username];
+    const queryString = `SELECT * from users WHERE username = $1`;
+    return Promise.resolve(db.query(queryString, params));
+    // .then(result => {
+    //   console.log('result password', result.rows[0].password)
+    //   // console.log('result', result.rows)
+    //   return result.rows[0]
+
+    // })
+    // .catch(err => console.log('error in initialize passport', err));
   },
   id => {
-    const queryString = `SELECT * from users WHERE user_id = "${id}"`
+    const params = [id];
+    const queryString = `SELECT * from users WHERE user_id = $1`;
     db.query(queryString)
-    .then(result => res.locals.user = result)
-    .catch(err => console.log('error in initialize passport', err))
+    .then(result => console.log(result))
+    .catch(err => console.log('error in initialize passport', err));
   }
   );
 
@@ -56,13 +64,24 @@ app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname,'../public/index.html'))
 })
 
-app.post('/register', userController.registerUser, (req, res) => {
-  res.status(200);
+app.get('/failure', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname,'./failure.html'))
+})
+app.post('/register', userController.registerUser, passport.authenticate('local',{
+  sucessRedirect: '/',
+  failureRedirect: '/failure',
+  failureFlash: true
+}), (req, res) => {
+  return res.status(200).json({isLoggedIn: true});
 })
 app.post('/login', passport.authenticate('local',{
   sucessRedirect: '/',
-  failureRedirect: '/'
-}))
+  failureRedirect: '/failure'
+  // failureFlash: true
+
+}), userController.checkAuthenticated, (req, res) => {
+  return res.status(200).json({isLoggedIn: true});
+})
 
 app.delete('/logout', (req, res) => {
   req.logOut()
