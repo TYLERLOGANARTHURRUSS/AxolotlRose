@@ -27,6 +27,7 @@ const bookTableString =
     title   VARCHAR(250) NOT NULL,
     author  VARCHAR(250) NOT NULL,
     userid  VARCHAR(250) NOT NULL
+    isbn    INT
 )`
 
 

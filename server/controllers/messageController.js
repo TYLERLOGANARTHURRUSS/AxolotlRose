@@ -11,4 +11,14 @@ messageController.sendMessage = async (req, res, next) => {
   const params = [userid, requester, message, read];
   const queryString = `INSERT INTO messages (_to, _from, message, read)
                        VALUES ($1, $2, $3, $4)`
+  try{
+    const result = await db.query(queryString, params);
+    console.log(result);
+    return next();
+  } catch(e) {
+    console.log('Error in messageController.sendMessage', err);
+    return next({error: `Error in messageController.sendMessage: ${err}`});
+  }
 }
+
+module.exports = messageController;

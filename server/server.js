@@ -10,7 +10,8 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').strategy;
 const db = require('./models/models.js');
 const userController = require('./controllers/userController');
-const bookController = require('./controllers/bookController')
+const bookController = require('./controllers/bookController');
+const messageController = require('./controllers/messageController')
 const app = express();
 const methodOverride = require('method-override');
 
@@ -77,27 +78,42 @@ app.post('/register', userController.registerUser, passport.authenticate('local'
   return res.status(200).json({userInfo: req.user});
 })
 app.post('/login', passport.authenticate('local',{
-  sucessRedirect: '/',
+  successRedirect: '/dashboard',
   failureRedirect: '/'
   // failureFlash: true
 }),(req, res) => {
   // console.log('req.user', req.user, 'req.session.passport.user', req.session.passport.user)
   return res.status(200).json({userInfo: req.user});
-})
+});
 
 app.post('/addBook', bookController.addBook, (req, res)=> {
   return res.sendStatus(200);
-})
+});
 
-app.post('/requestBook', (req, res) => {
-  
-})
+app.post('/requestBook', bookController.findBook, messageController.sendMessage, (req, res) => {
+  return res.sendStatus(200);
+});
+
+app.post('/search', bookController.searchByTitle, (req, res) => { //for a requst to return all books held with a certain isbn
+  return res.status(200).json(res.locals.books);
+});
 
 app.delete('/logout', (req, res) => {
   req.logOut()
   // res.locals.logout = true;
   res.sendStatus(200);
-})
+});
+
+app.use((err, req, res, next) => { //universal middlewear error handler
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
+});
 
 app.listen(3000, ()=> {
   console.log('Listening on port 3000')

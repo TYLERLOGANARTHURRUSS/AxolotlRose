@@ -40,7 +40,7 @@ function initialize(passport, getUserByUsername, getUserById){
     console.log('we are in serializeUser')
     return done(null, user.user_id)
   });  
-  passport.deserializeUser( async (id, done) => { //we d't know what this does
+  passport.deserializeUser( async (id, done) => { //this removes cookie from user
     let user;
     console.log('in deserializeuser')
     const params = [id];
