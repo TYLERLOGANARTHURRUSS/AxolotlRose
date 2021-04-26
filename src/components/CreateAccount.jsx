@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import axios from 'axios'
-//import image from '../../public/images/desktop.jpg'
+
 
 const CreateAccount = (props) => {
    const [username, setUserName] = useState("")
