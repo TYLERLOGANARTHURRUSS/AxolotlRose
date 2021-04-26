@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from "react";
+import { navigate, useRoutes } from "@patched/hookrouter";
 import axios from "axios";
 
 const LogInForm = (props) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     axios
       .post("/login", { username: username, password: password })
       .then(function (response) {
-          console.log(response)
-          if (response) {
-          props.updateUserId(response.data.userInfo.user_id)
-          
-          props.login(true);          
+        console.log(response);
+        console.log(props);
+        if (response) {
+          props.updateUserId(response.data.userInfo.user_id);
+          props.login(true);
+          navigate("/dashboard", true);
         }
-        
       })
-      .catch((e) => setErrorMessage('Incorrect username or password! Try again!'));
+      .catch((e) =>
+        setErrorMessage("Incorrect username or password! Try again!")
+      );
   };
   return (
     <form onSubmit={handleSubmit}>
