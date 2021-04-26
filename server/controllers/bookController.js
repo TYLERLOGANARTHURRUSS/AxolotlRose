@@ -41,7 +41,7 @@ bookController.searchByTitle = async (req, res, next) => {
   //request body will be isbn?  ///no we need to find a way to query our own databse  titles for something close to what we actually hold as title and author
   const { title } = req.body;
   
-  let titleArray = title.trim().split(' ')
+  let titleArray = title.trim().split(' ')  //takes request from front end makes it a usuable SQL search
   let titleQuery = '%';
   titleArray.forEach(el => {
     el = el.toLowerCase()
@@ -50,7 +50,7 @@ bookController.searchByTitle = async (req, res, next) => {
     titleQuery = titleQuery + string;
   });
   const params = [titleQuery]
-  const queryString = `SELECT * FROM books WHERE title LIKE $1`
+  const queryString = `SELECT * FROM books WHERE title LIKE $1` //searches SQL db for all titles that contain keywords in user query. but they have to spell correctly
   try {
     const result = await db.query(queryString, params);
     res.locals.books = result.rows
