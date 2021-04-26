@@ -6,8 +6,8 @@ const pool = new Pool({
   connectionString: PG_URI,
 });
 
-//for future devs: schema for the above db will be found at
-//github.
+//for future devs: schema (ish) for the above db will be found in 
+//tables.js
 pool.on('connect', () => {
   console.log('connected to database')
 })
