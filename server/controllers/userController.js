@@ -33,46 +33,25 @@ userController.registerUser = async (req, res, next) => {
  }
 }
 
-userController.checkAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()){
-    res.locals.auth = true
-    return next()
-  }
-  res.locals.auth = false;
-}
-
-// userController.checkNotAuthenticated = (req, res, next) => {
+// userController.checkAuthenticated = (req, res, next) => {
 //   if (req.isAuthenticated()){
-//     res.locals.auth = true;
+//   console.log('req.user in checkAuthenticated', req.user, 'req.session.passport.user', req.session.passport.user) 
 //     return next()
 //   }
+//   // res.locals.auth = false;
+//   // res.json(res.locals.auth)
+  
 //   return next();
 // }
-// userController.verifyUser = async (req, res, next) => {
-//   try {
-
+// userController.checkNotAuthenticated = (req, res, next) => {
+//   if (req.isAuthenticated()){
+//   console.log('req.user in checkAuthenticated', req.user, 'req.session.passport.user', req.session.passport.user) 
+//     res.locals.auth = true;
+//     // res.send(res.locals.auth)
+//     // res.redirect('/');
+//     return next()
 //   }
+//   return next()
 // }
-// userController.testConnect =  (req, res, next) => {
-  
-//   var conString = "postgres://ujneeeir:fnSCEBl8hgf4INkhrJll4J4AxvbitKqp@queenie.db.elephantsql.com:5432/ujneeeir" //Can be found in the Details page
-  
-//   Pool.connect(function(err) {
-//     if(err) {
-//       return console.error('could not connect to postgres', err);
-//       return next();
-//     }
-//     Pool.query('SELECT NOW() AS "theTime"', function(err, result) {
-//       if(err) {
-//         return console.error('error running query', err);
-//       }
-//       console.log("connected to db", result.rows[0].theTime);
-//       // >> output: 2018-08-23T14:02:57.117Z
-//       client.end();
-//       return next();
-//     });
-//   });
-// }
-
 
 module.exports = userController;
