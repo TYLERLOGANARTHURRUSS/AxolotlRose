@@ -34,7 +34,7 @@ initializePassport(
     // .catch(err => console.log('error in initialize passport', err));
   },
   id => {
-    const params = [id];
+    const params = [id]; //I don't understand this? we are not searhcing for the id....
     const queryString = `SELECT * from users WHERE user_id = $1`;
     db.query(queryString)
     .then(result => console.log(result))

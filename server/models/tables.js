@@ -14,7 +14,8 @@ const userTableString =
     password  VARCHAR(250) NOT NULL,
     name  VARCHAR(250),
     piclink   VARCHAR(1000),
-    location  VARCHAR(120)
+    location  VARCHAR(120),
+    points    INT
   )`
 
   // INSERT INTO users (username, password, lastname, firstname, piclink, location)

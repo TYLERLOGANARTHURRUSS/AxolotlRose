@@ -10,7 +10,7 @@ const NavBar = (props) => {
     
      return(
     <div id='navContainer'>
-        <h1>Big Little Library</h1>
+        <h1>Axolotl Library</h1>
         <div id='logins'>
             
         {component}
