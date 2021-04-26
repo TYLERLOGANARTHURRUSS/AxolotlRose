@@ -1,4 +1,5 @@
 import React from "react";
+
 import LogInForm from "./Login.jsx";
 import LogOut from "./Logout.jsx";
 
@@ -7,7 +8,7 @@ const NavBar = (props) => {
   let logInStatus = props.logInStatus;
   let component;
   if (logInStatus === true) component = <LogOut />;
-  else if (logInStatus === false) component = <LogInForm login={props.login} />;
+  else if (logInStatus === false) component = <LogInForm login={props.login} updateUserId ={props.updateUserId}/>;
 
   return (
     <div id="navContainer">

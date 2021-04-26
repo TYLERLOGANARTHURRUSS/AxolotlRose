@@ -6,11 +6,13 @@ import CreateAccount from "./CreateAccount.jsx";
 import SearchAndAdd from "./SearchAndAdd.jsx";
 import OrderBooks from "./OrderBooks.jsx"
 import Dashboard from "./Dashboard.jsx";
+import Notifications from "./Notifications.jsx"
 import "../../public/styles.css";
-import { BrowserRouter, Switch, Route, Link  } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link  } from 'react-router-dom'
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userId, setUserId] = useState('')
 
   useEffect(() => {
   }, [isAuthenticated]);
@@ -24,22 +26,31 @@ const App = () => {
   }
 
   return (
+    <Router>
     <div>
       <nav id="navBarContainer">
-        <NavBar logInStatus={isAuthenticated} login={setIsAuthenticated} />
+        <NavBar logInStatus={isAuthenticated} login={setIsAuthenticated} updateUserId={setUserId} />
       </nav>
 
       <div id="mainContainer">
-       <BrowserRouter>
+
+      {/* <Route
+  path='/dashboard'
+  render={(props) => (
+    <Dashboard {...props} isAuthed={true} />
+  )} */}
+       
         <Switch>
            <Route exact path='/' component = {CreateAccount}/>
+           <Route path= '/notifcations' component = {Notifications}/>
            <Route path= '/dashboard' component = {Dashboard} />
-           <Route path='/addBooksToLibrary' component = {SearchAndAdd} />
+           <Route path='/addBooks' render={(props) => (<SearchAndAdd {...props} userId = {userId} /> )} />
            <Route path='/orderBooks' component = {OrderBooks} />
         </Switch>
-        </BrowserRouter>
+        
       </div>
     </div>
+    </Router>
   );
 };
 

@@ -11,7 +11,10 @@ const LogInForm = (props) => {
     axios
       .post("/login", { username: username, password: password })
       .then(function (response) {
+          console.log(response)
           if (response) {
+          props.updateUserId(response.data.userInfo.user_id)
+          
           props.login(true);          
         }
         
