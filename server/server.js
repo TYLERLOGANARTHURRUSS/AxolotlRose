@@ -5,18 +5,18 @@ require ('dotenv').config();
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-// const pgSession = require('connect-pg-simple');
 const flash = require('express-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').strategy;
-// const { disconnect, nextTick } = require('process');
-const db = require('./models/models.js')
-
-const userController = require('./controllers/userController')
+const db = require('./models/models.js');
+const userController = require('./controllers/userController');
+const bookController = require('./controllers/bookController')
 const app = express();
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
 
 const initializePassport = require('./passport-config');
+const { checkAuthenticated } = require('./controllers/userController');
+const { nextTick } = require('process');
 
 initializePassport(
   passport, 
@@ -65,23 +65,29 @@ app.get('/', (req, res) => {
 })
 
 app.get('/failure', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname,'./failure.html'))
+  console.log('in failure get route')
+  return res.status(200).sendFile(path.join(__dirname,'../failure.html'))
 })
 app.post('/register', userController.registerUser, passport.authenticate('local',{
   sucessRedirect: '/',
-  failureRedirect: '/failure',
-  failureFlash: true
+  failureRedirect: '/'
+  // failureFlash: true
 }), (req, res) => {
-  return res.status(200).json({isLoggedIn: true});
+  return res.status(200).json({userInfo: req.user});
 })
 app.post('/login', passport.authenticate('local',{
   sucessRedirect: '/',
-  failureRedirect: '/failure'
+  failureRedirect: '/'
   // failureFlash: true
-
-}), userController.checkAuthenticated, (req, res) => {
-  return res.status(200).json({isLoggedIn: true});
+}),(req, res) => {
+  // console.log('req.user', req.user, 'req.session.passport.user', req.session.passport.user)
+  return res.status(200).json({userInfo: req.user});
 })
+
+app.post('/addBook', bookController.addBook, (req, res)=> {
+  return res.sendStatus(200);
+})
+
 
 app.delete('/logout', (req, res) => {
   req.logOut()

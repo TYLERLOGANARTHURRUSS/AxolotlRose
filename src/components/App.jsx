@@ -7,7 +7,7 @@ import Dashboard from './Dashboard.jsx'
 import '../../public/styles.css'
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(async ()=>{
   const result = await axios('/api/loggedIn')
