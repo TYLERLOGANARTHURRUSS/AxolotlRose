@@ -3,7 +3,7 @@ import axios from 'axios';
 import ShowBooks from './ShowBooks.jsx'
 
 
-const SearchAndAdd = ()=>{
+const OrderBooks = ()=>{
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([]);
     const [add, setAdd] = useState('');
@@ -40,4 +40,4 @@ const SearchAndAdd = ()=>{
     )
 }
 
-export default SearchAndAdd;
+export default OrderBooks;
