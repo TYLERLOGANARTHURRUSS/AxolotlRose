@@ -7,7 +7,7 @@ const SearchAndAdd = ()=>{
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([]);
     const [add, setAdd] = useState('');
-    const searchBooks = () => {
+    const searchBooks = (props) => {
         setResults([]);
         axios(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyCG4CetKRxfceKIXmPWjbo5PsOtJ0HOi0U`
         ).then(data=>data.data.items).then(data=>data.forEach(el => {
@@ -16,10 +16,11 @@ const SearchAndAdd = ()=>{
             console.log(data)
             setResults(results => [...results, 
             <ShowBooks 
-            title = {books[0][0]} 
-            author={books[0][1]} 
-            imgLink = {books[0][2]}
-            id = {books[0][3]}
+                userId = {props.userId}
+                title = {books[0][0]} 
+                author={books[0][1]} 
+                imgLink = {books[0][2]}
+                id = {books[0][3]}
             />])
             
         }))

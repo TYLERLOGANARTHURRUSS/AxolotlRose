@@ -62,10 +62,6 @@ module.exports = {
     }, 
      port: 8080,
      hot: true,
+     historyApiFallback: true,
   },
-  resolve: {
-    alias: {
-      "react-router-dom": path.resolve(__dirname, "node_modules", "react-router-dom"),
-   }
-  }
 }; 

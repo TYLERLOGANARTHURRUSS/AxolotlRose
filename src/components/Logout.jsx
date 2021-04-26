@@ -12,20 +12,21 @@ const LogOut = () => {
       .delete("/logout", { please: "log me out Mr.Server" })
       .then(function (response) {
         console.log(response);
-        if (response) location.reload();
+        location.reload()
       })
       .catch((e) => console.log(e));
   };
   return (
-      <BrowserRouter>
-    <ul id="navList">
-      <li><Link to ='/'>My Library</Link></li>
-      <li><Link to="/orderBooks">Order a book</Link></li>
-      <li><Link to="/notifications"><FontAwesomeIcon icon={faBell}/></Link></li>
-      <li><Link to="/"><FontAwesomeIcon icon={faUserCog} /></Link></li>
-      <li><FontAwesomeIcon icon={faDoorClosed} onClick={handleClick} /></li>
-    </ul>
-    </BrowserRouter>
+    
+        <ul id="navList">
+            <li><Link to ='/dashboard'>My Library</Link></li>
+            <li><Link to ='/addBooks'>Add to Libary</Link></li>
+            <li><Link to="/orderBooks">Order a book</Link></li>
+            <li><Link to="/notifications"><FontAwesomeIcon icon={faBell}/></Link></li>
+            <li><Link to="/"><FontAwesomeIcon icon={faUserCog} /></Link></li>
+            <li><FontAwesomeIcon icon={faDoorClosed} onClick={handleClick} /></li>
+        </ul>
+    
   );
 };
 

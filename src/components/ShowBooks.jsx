@@ -4,7 +4,8 @@ import axios from 'axios';
 const ShowBooks = (props)=>{
 
     const handleLibraryClick = () =>{
-        axios.post('/addbook', {'title': props.title, 'author':props.author, 'imgLink': props.imgLink, 'ISBN':props.id})
+        axios.post('/addBook', {'title': props.title, 'author':props.author,  'isbn':props.id, 'user_id':props.userId})
+        .then(response => console.log(response))
     }
 
     return(
