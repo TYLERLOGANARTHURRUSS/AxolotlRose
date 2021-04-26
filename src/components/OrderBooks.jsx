@@ -9,8 +9,9 @@ const SearchAndAdd = ()=>{
     const [add, setAdd] = useState('');
     const searchBooks = () => {
         setResults([]);
-        axios(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyCG4CetKRxfceKIXmPWjbo5PsOtJ0HOi0U`
-        ).then(data=>data.data.items).then(data=>data.forEach(el => {
+        axios('/ourdatabase')
+        .then(data=>data.data.items)
+        .then(data=>data.forEach(el => {
             const books = [];
             books.push([el.volumeInfo.title, el.volumeInfo.authors[0], el.volumeInfo.imageLinks.thumbnail, el.volumeInfo.industryIdentifiers[1].identifier]) 
             console.log(data)
@@ -34,16 +35,9 @@ const SearchAndAdd = ()=>{
             <button id='bookSearch' onClick={searchBooks}>Search</button>
             <div id = 'bookDisplay'>
                 {results}
-            </div>
-            
-         
-            
-            
+            </div>            
         </div>
     )
-
-
-
 }
 
 export default SearchAndAdd;
