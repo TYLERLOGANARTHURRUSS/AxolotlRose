@@ -29,8 +29,9 @@ function initialize(passport, getUserByUsername, getUserById){
     } catch(e) {
       console.log(e)
       const err = {error: e}
-      // return done(JSON.stringify({message: 'error in authenticateUser ' + e}));
-      return done(null, false, err)
+      // done()
+      return done(JSON.stringify({message: 'error in authenticateUser ' + e}));
+      // return done(null, false, err)
     }
 
   }

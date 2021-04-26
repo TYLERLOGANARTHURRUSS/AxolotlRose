@@ -73,6 +73,7 @@ app.post('/register', userController.registerUser, passport.authenticate('local'
   failureRedirect: '/'
   // failureFlash: true
 }), (req, res) => {
+  console.log('req body user', req.body, 'req.user', req.user)
   return res.status(200).json({userInfo: req.user});
 })
 app.post('/login', passport.authenticate('local',{
@@ -88,11 +89,14 @@ app.post('/addBook', bookController.addBook, (req, res)=> {
   return res.sendStatus(200);
 })
 
+app.post('/requestBook', (req, res) => {
+  
+})
 
 app.delete('/logout', (req, res) => {
-  req.logOut()    // <---- this is a passport.methd?
-  res.locals.logout = true;
-  res.status(200).json(res.locals.logout)
+  req.logOut()
+  // res.locals.logout = true;
+  res.sendStatus(200);
 })
 
 app.listen(3000, ()=> {
