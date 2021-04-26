@@ -17,8 +17,7 @@ const ShowBooks = (props)=>{
             <h3>{props.title}</h3>
             <img src={props.imgLink}/>
             <h4>{props.author}</h4>
-            <button id='addLibrary' onClick = {handleLibraryClick}>I own this!</button>
-            <button id='addWishlist' onClick = {handleWishClick}>I want this!</button>
+            <button id='addLibrary' onClick = {handleLibraryClick}>I own this!</button>           
         </div>
 
     )
