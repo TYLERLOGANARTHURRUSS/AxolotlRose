@@ -9,7 +9,7 @@ const NavBar = (props) => {
   if (logInStatus === true) component = <LogOut />;
   else if (logInStatus === false)
     component = (
-      <LogInForm login={props.login} updateUserId={props.updateUserId} />
+      <LogInForm userId={props.userId} login={props.login} updateUserId={props.updateUserId} />
     );
 
   return (

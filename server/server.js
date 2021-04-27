@@ -1,14 +1,8 @@
-// if (process.evv.NODE_ENV !== 'production') {
-//   require('dotenv').config();
-// }
 require ('dotenv').config();
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const flash = require('express-flash');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').strategy;
-const db = require('./models/models.js');
 const userController = require('./controllers/userController');
 const bookController = require('./controllers/bookController');
 const messageController = require('./controllers/messageController')
@@ -16,31 +10,9 @@ const app = express();
 const methodOverride = require('method-override');
 
 const initializePassport = require('./passport-config');
-const { checkAuthenticated } = require('./controllers/userController');
-const { nextTick } = require('process');
 
-initializePassport(
-  passport, 
-  async (username) => {
-    const params = [username];
-    const queryString = `SELECT * from users WHERE username = $1`;
-    return Promise.resolve(db.query(queryString, params));
-    // .then(result => {
-    //   console.log('result password', result.rows[0].password)
-    //   // console.log('result', result.rows)
-    //   return result.rows[0]
 
-    // })
-    // .catch(err => console.log('error in initialize passport', err));
-  },
-  id => {
-    const params = [id]; //I don't understand this? we are not searhcing for the id....
-    const queryString = `SELECT * from users WHERE user_id = $1`;
-    db.query(queryString)
-    .then(result => console.log(result))
-    .catch(err => console.log('error in initialize passport', err));
-  }
-  );
+initializePassport(passport);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -54,13 +26,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'))
 
-
-// app.use(session());
-
-// app.use(passport.initialize());
-
-
-
 app.get('/', (req, res) => {
   res.status(200).sendFile(path.join(__dirname,'../public/index.html'))
 })
@@ -70,17 +35,18 @@ app.get('/failure', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname,'../failure.html'))
 })
 app.post('/register', userController.registerUser, passport.authenticate('local',{
-  sucessRedirect: '/',
-  failureRedirect: '/'
-  // failureFlash: true
+  
+  // successRedirect: '/',   // commented out because of the way we are implementing hookrouter
+  // failureRedirect: '/'
+  // // failureFlash: true
 }), (req, res) => {
   console.log('req body user', req.body, 'req.user', req.user)
   return res.status(200).json({userInfo: req.user});
 })
 app.post('/login', passport.authenticate('local',{
-  successRedirect: '/dashboard',
-  failureRedirect: '/'
-  // failureFlash: true
+  // successRedirect: '/dashboard',
+  // failureRedirect: '/'
+  // // failureFlash: true
 }),(req, res) => {
   // console.log('req.user', req.user, 'req.session.passport.user', req.session.passport.user)
   return res.status(200).json({userInfo: req.user});

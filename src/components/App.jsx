@@ -10,21 +10,24 @@ import Notifications from "./Notifications.jsx";
 import "../../public/styles.css";
 
 import { navigate, useRoutes } from "@patched/hookrouter";
-
+/*NOTE TO NEXT GROUP. You'll need to npm install and then in addition
+//npm install @patched/hookrouter */
 const routes = {
   "/": () => <CreateAccount />,
   "/dashboard": () => <Dashboard />,
   "/notifications": () => <Notifications />,
-  "/addBooks":  (props) => <SearchAndAdd />,
+  "/addBooks":() => <SearchAndAdd />,
   "/orderBooks": () => <OrderBooks />,
 };
+
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState("");
   const routeResult = useRoutes(routes);
   useEffect(() => {}, [isAuthenticated]);
-  
+
+
 
   return (
     <div>
@@ -33,6 +36,7 @@ const App = () => {
           logInStatus={isAuthenticated}
           login={setIsAuthenticated}
           updateUserId={setUserId}
+          userId={userId}
         />
       </nav>
 

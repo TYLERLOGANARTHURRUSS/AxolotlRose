@@ -7,7 +7,6 @@ const SearchAndAdd = (props) => {
   const [results, setResults] = useState([]);
   const [add, setAdd] = useState("");
   const searchBooks = (props) => {
-    console.log("These are our fucking props.",props.userId)
     setResults([]);
     axios(
       `https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyBvzRvXUMUGGeATujnaMUbaQS9dxclLbOk`
